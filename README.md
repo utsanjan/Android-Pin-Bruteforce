@@ -1,10 +1,10 @@
-# 🔓📱 Android-PIN-Bruteforce
+# Android-PIN-Bruteforce
 
 Unlock an Android phone (or device) by bruteforcing the lockscreen PIN.
 
 Turn your Kali Nethunter phone into a bruteforce PIN cracker for Android devices! 
 
-## 📱 How it works
+## How it works
 
 It uses a USB OTG cable to connect the locked phone to the Nethunter device. It emulates a keyboard, automatically tries PINs, and waits after trying too many wrong guesses.
 
@@ -14,16 +14,16 @@ It uses a USB OTG cable to connect the locked phone to the Nethunter device. It 
 
 The USB HID Gadget driver provides emulation of USB Human Interface Devices (HID). This enables an Android Nethunter device to emulate keyboard input to the locked phone. It's just like plugging a keyboard into the locked phone and pressing keys.
 
-⏄1�7 This takes a bit over 16.6 hours to try all possible 4 digit PINs, but with the optimised PIN list it should take you much less time.
+â„1¤7 This takes a bit over 16.6 hours to try all possible 4 digit PINs, but with the optimised PIN list it should take you much less time.
 
-### 📱 ⛄1�7 📲 You will need
+### You will need
 
 - A locked Android phone
 - A Nethunter phone (or any rooted Android with HID kernel support)
 - USB OTG (On The Go) cable/adapter (USB male Micro-B to female USB A), and a standard charging cable (USB male Micro-B to male A).
 - That's all!
 
-## 🌟 Benefits
+## Benefits
 
 - Turn your NetHunter phone into an Android PIN cracking machine
 - Unlike other methods, you do not need ADB or USB debugging enabled on the locked phone
@@ -31,7 +31,7 @@ The USB HID Gadget driver provides emulation of USB Human Interface Devices (HID
 - You can easily modify the backoff time to crack other types of devices
 - It works!
 
-## ⭄1�7 Features
+## Features
 
 - Optimised PIN list
 - Bypasses phone pop-ups including the Low Power warning
@@ -77,7 +77,7 @@ It has been tested with these devices:
 - Samsung S5 with Android 6.0.1
 
 
-## 🎳 PIN Lists
+## PIN Lists
 
 ### Optimised PIN list
 
@@ -98,7 +98,7 @@ Masks use regular expressions with the standard grep extended format.
 - To try PINs that end in 4 or 5, use `...[45]`
 
 
-## 🚀 Roadmap
+## Roadmap
 
 - [DONE] Works
 - [DONE] Detects USB HID failures
@@ -115,7 +115,7 @@ Masks use regular expressions with the standard grep extended format.
 - Crack Android Patterns (try common patterns first)
 
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 ### Executing the script
 
@@ -148,11 +148,11 @@ If you receive this message when the USB cable is plugged in then try taking the
 - Note that the ```Device not Found``` messages are not as important as sending keys successfully.
 
 
-## 💣 Known Issues
+## Known Issues
 
 - This cannot detect when it unlocks
 
-## 🛰 Technical Details
+## Technical Details
 
 This works from an Android phone because the USB ports are not bidirectional, unlike the ports on a laptop.
 
@@ -162,13 +162,13 @@ To test this and send the key 1 you can use `echo 1 | /system/xbin/hid-keyboard 
 Before each PIN, we send the escape and enter keys. This is to keep the Android responsive and dismiss any popups about the number of incorrect PIN attempts or a low battery warning.
 
 
-## 🙋 Contributing
+## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
 
-## 😎 Authors and acknowledgment
+## Authors and acknowledgment
 
 Developed by Utsanjan Maity (Dope Satan).
 
@@ -190,7 +190,7 @@ Designed by Utsanjan Maity and gratefully using these free vector packs:
 - [Isometric Data Security Illustration by Rizal.Medanguide](https://www.vecteezy.com/vector-art/661831-isometric-data-security-illustration)
 - Kali NetHunter Logo
 
-## 🗿 Comparison with other projects and methods to unlock a locked Android phone
+## Comparison with other projects and methods to unlock a locked Android phone
 
 ### What makes this project unique? 
 
@@ -204,7 +204,7 @@ It works:
 
 | Project                                               | ADB/USB Debugging  | Requires root | Requires $ hardware | Commercial  |
 ------------------------------------------------------- | ------------------ | ------------- | ------------------- | ----------- | 
-| ⭄1�7 Android-PIN-Bruteforce                             | No                 | No            | Nethunter phone     | No          | 
+| Android-PIN-Bruteforce                                | No                 | No            | Nethunter phone     | No          | 
 | github.com/PentesterES/AndroidPINCrack                | Yes                | Yes           | No                  | No          |
 | github.com/ByteRockstar1996/Cracking-Android-Pin-Lock | Yes                | Yes           | No                  | No          |
 | github.com/sch3m4/androidpatternlock                  | Yes                | Yes           | No                  | No          |
@@ -225,9 +225,9 @@ Some of these projects/products are really awesome but they achieve a different 
 If a project requires a gestures.key or password.key, I've listed it as requiring root.
 If a project requires a custom bootloader, I've listed that as requiring both ADB and root.
 If you would like your project listed in this table then please open a new issue.
-There are links to each of these projects in the 📚 Related Projects & Futher Reading section.
+There are links to each of these projects in the ðŸ“š Related Projects & Futher Reading section.
 
-### 😭 Regular phone users
+### Regular phone users
 
 - Try the top 20 PINs from the [DataGenetics PIN analysis](https://datagenetics.com/blog/september32012/index.html) that apparently unlocks 26.83% of phones.
 - Use an SMS lock-screen bypass app (requires app install before phone is locked)
@@ -236,7 +236,7 @@ There are links to each of these projects in the 📚 Related Projects & Futher 
 - Use the Google Forgot pattern, Forgot PIN, or Forgot password (Android 4.4 KitKat and earlier)
 - Factory Reset (you lose all your data)
 
-### 🤖 Users who have already replaced their Android ROM
+### Users who have already replaced their Android ROM
 
 If the phone already has been rooted, has USB debugging enabled, or has adb enabled.
 
@@ -245,7 +245,7 @@ If the phone already has been rooted, has USB debugging enabled, or has adb enab
 - Crack `/data/system/gesture.key` and `password.key` (requires root and adb on locked device)
 - Update sqlite3 database `settings.db` (requires root and adb on locked device)
 
-### 🔬 Forensic Investigators
+### Forensic Investigators
 
 These methods can be expensive and are usually only used by specialised phone forensic investigators.
 
@@ -257,7 +257,7 @@ Note that the Cellebrite and XPIN Clip can also use the USB HID Keyboard Brutefo
 - JTAG extraction
 - Chip Off
 
-### 🕵 Security Professionals and Technical Phone Users
+### Security Professionals and Technical Phone Users
 
 Use the USB HID Keyboard Bruteforce with some dedicated hardware.
 
@@ -269,7 +269,7 @@ Use the USB HID Keyboard Bruteforce with some dedicated hardware.
 Attempts to use an otherwise awesome project Duck Hunter, to emulate a RubberDucky payload for Android PIN cracking did not work. It crashed the phone probably because of the payload length.
 
 
-## 📚 Related Projects & Futher Reading
+## Related Projects & Futher Reading
 
 ### USB HID Hardware without NetHunter
 
