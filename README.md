@@ -1,10 +1,10 @@
-# Android-PIN-Bruteforce
+# 📱 Android-PIN-Bruteforce
 
 Unlock an Android phone (or device) by bruteforcing the lockscreen PIN.
 
 Turn your Kali Nethunter phone into a bruteforce PIN cracker for Android devices! 
 
-## How it works
+## 🧭 How it works
 
 It uses a USB OTG cable to connect the locked phone to the Nethunter device. It emulates a keyboard, automatically tries PINs, and waits after trying too many wrong guesses.
 
@@ -18,14 +18,14 @@ The USB HID Gadget driver provides emulation of USB Human Interface Devices (HID
 
 ⏳ This takes a bit over 16.6 hours to try all possible 4 digit PINs, but with the optimised PIN list it should take you much less time.
 
-### You will need
+### ✔ You will need
 
 - A locked Android phone
 - A Nethunter phone (or any rooted Android with HID kernel support)
 - USB OTG (On The Go) cable/adapter (USB male Micro-B to female USB A), and a standard charging cable (USB male Micro-B to male A).
 - That's all!
 
-## Benefits
+## ✨ Benefits
 
 - Turn your NetHunter phone into an Android PIN cracking machine
 - Unlike other methods, you do not need ADB or USB debugging enabled on the locked phone
@@ -33,7 +33,7 @@ The USB HID Gadget driver provides emulation of USB Human Interface Devices (HID
 - You can easily modify the backoff time to crack other types of devices
 - It works!
 
-## Features
+## 👉🏻 Features
 
 - Optimised PIN list
 - Bypasses phone pop-ups including the Low Power warning
@@ -41,12 +41,12 @@ The USB HID Gadget driver provides emulation of USB Human Interface Devices (HID
 - Configurable delays of N seconds after every X PIN attempts
 - Log file
 
-## Installation
+## ⚙ Installation
 
 TBC
 
 
-## Usage
+## ⚙ Usage
 
 ```
 
@@ -73,13 +73,13 @@ Usage:
 ```
 
 
-## Supported Android Phones/Devices
+## 📲 Supported Android Phones/Devices
 
 It has been tested with these devices:
 - Samsung S5 with Android 6.0.1
 
 
-## PIN Lists
+## 📌 PIN Lists
 
 ### Optimised PIN list
 
@@ -89,7 +89,7 @@ pinlist.txt is from https://github.com/mandatoryprogrammer/droidbrute
 This list is used with permission from Justin Engler & Paul Vines from Senior Security Engineer, iSEC Partners,
 and was used in their Defcon talk, [Electromechanical PIN Cracking with Robotic Reconfigurable Button Basher (and C3BO)](https://www.defcon.org/html/defcon-21/dc-21-speakers.html#Engler)
 
-### Cracking with Masks
+### 🎭 Cracking with Masks
 
 Masks use regular expressions with the standard grep extended format.
 
@@ -100,7 +100,7 @@ Masks use regular expressions with the standard grep extended format.
 - To try PINs that end in 4 or 5, use `...[45]`
 
 
-## Roadmap
+## 🛣 Roadmap
 
 - [DONE] Works
 - [DONE] Detects USB HID failures
@@ -117,7 +117,7 @@ Masks use regular expressions with the standard grep extended format.
 - Crack Android Patterns (try common patterns first)
 
 
-## Troubleshooting
+## 🙁 Troubleshooting
 
 ### Executing the script
 
@@ -150,11 +150,11 @@ If you receive this message when the USB cable is plugged in then try taking the
 - Note that the ```Device not Found``` messages are not as important as sending keys successfully.
 
 
-## Known Issues
+## 💀 Known Issues
 
 - This cannot detect when it unlocks
 
-## Technical Details
+## ⚙ Technical Details
 
 This works from an Android phone because the USB ports are not bidirectional, unlike the ports on a laptop.
 
@@ -164,13 +164,13 @@ To test this and send the key 1 you can use `echo 1 | /system/xbin/hid-keyboard 
 Before each PIN, we send the escape and enter keys. This is to keep the Android responsive and dismiss any popups about the number of incorrect PIN attempts or a low battery warning.
 
 
-## Contributing
+## ✔ Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
 
-## Dev details
+## 🧑🏻‍💻 Dev details
 
 Developed by Utsanjan Maity - aka Dope Satan.
 
@@ -192,7 +192,7 @@ Designed by Utsanjan Maity and gratefully using these free vector packs:
 - [Isometric Data Security Illustration by Rizal.Medanguide](https://www.vecteezy.com/vector-art/661831-isometric-data-security-illustration)
 - Kali NetHunter Logo
 
-## Comparison with other projects and methods to unlock a locked Android phone
+## 🌟 Comparison with other projects and methods to unlock a locked Android phone
 
 ### What makes this project unique? 
 
@@ -271,7 +271,7 @@ Use the USB HID Keyboard Bruteforce with some dedicated hardware.
 Attempts to use an otherwise awesome project Duck Hunter, to emulate a RubberDucky payload for Android PIN cracking did not work. It crashed the phone probably because of the payload length.
 
 
-## Related Projects & Futher Reading
+## 👉🏻 Related Projects & Futher Reading
 
 ### USB HID Hardware without NetHunter
 
