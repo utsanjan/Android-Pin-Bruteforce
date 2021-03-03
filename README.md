@@ -10,11 +10,13 @@ It uses a USB OTG cable to connect the locked phone to the Nethunter device. It 
 
 ![How to Connect Phones](https://user-images.githubusercontent.com/101783/91640968-b7d46280-ea64-11ea-8340-94e3bacb706e.png)
 
-[Nethunter phone] <--> [USB cable] <--> [USB OTG adaptor] <--> [Locked Android phone]
+[Nethunter phone] ⇌ [USB cable] ⇌ [USB OTG adaptor] ⇌ [Locked Android phone]
 
-The USB HID Gadget driver provides emulation of USB Human Interface Devices (HID). This enables an Android Nethunter device to emulate keyboard input to the locked phone. It's just like plugging a keyboard into the locked phone and pressing keys.
+The USB HID Gadget driver provides emulation of USB Human Interface Devices (HID).
+<br>This enables an Android Nethunter device to emulate keyboard input to the locked phone.
+<br>It's just like plugging a keyboard into the locked phone and pressing keys.
 
-â„1¤7 This takes a bit over 16.6 hours to try all possible 4 digit PINs, but with the optimised PIN list it should take you much less time.
+⏳ This takes a bit over 16.6 hours to try all possible 4 digit PINs, but with the optimised PIN list it should take you much less time.
 
 ### You will need
 
@@ -168,9 +170,9 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 Please make sure to update tests as appropriate.
 
-## Authors and acknowledgment
+## Dev details
 
-Developed by Utsanjan Maity (Dope Satan).
+Developed by Utsanjan Maity - aka Dope Satan.
 
 ### Motivation
 
