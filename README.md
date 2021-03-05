@@ -1,8 +1,14 @@
-# 📱 Android-PIN-Bruteforce
-
-Unlock an Android phone (or device) by bruteforcing the lockscreen PIN.
-
-Turn your Kali Nethunter phone into a bruteforce PIN cracker for Android devices! 
+<h1 align="center">
+  <br>
+  <a href="https://github.com/utsanjan/Android-Pin-Bruteforce/">
+  <img src="https://1.bp.blogspot.com/-JJeNjzx3myo/YEGmoUEBIzI/AAAAAAAAbfU/d-_pAOcAtssDUYq0SllwA-FjZ_7KXwiiQCLcBGAsYHQ/s200/5vyz.png"
+  alt="Android Pin Bruteforce">
+  </a><br>
+  Android PIN Bruteforce
+  <br>
+</h1>
+<p align="center">Unlock an Android phone (or device)<br>by bruteforcing the lockscreen PIN.
+<br>Turn your Kali Nethunter phone into a<br>bruteforce PIN cracker for Android devices!</p>
 
 ## 🧭 How it works
 
