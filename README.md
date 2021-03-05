@@ -76,7 +76,7 @@ Usage:
 ```
 
 
-## 📲 Supported Android Phones/Devices
+## 📲 Supported Android Phones
 
 It has been tested with these devices:
 - Samsung S5 with Android 6.0.1
@@ -103,28 +103,12 @@ Masks use regular expressions with the standard grep extended format.
 - To try PINs that end in 4 or 5, use `...[45]`
 
 
-## 🛣 Roadmap
-
-- [DONE] Works
-- [DONE] Detects USB HID failures
-- [DONE] Improve Usage and commandline options/config files
-- [DONE] Add bruteforce for n digit PINs
-- [DONE] Mask for known digits
-- [DONE] Crack PIN list in reverse (to find which recent PIN unlocked the device)
-- Add progress bar
-- Add ETA
-- ASCII art
-- Nicer GUI for NetHunter
-- Find/test more devices to bruteforce (iPhone)
-- Try to detect when phone is unlocked (Use Nethunter camera as a sensor?)
-- Crack Android Patterns (try common patterns first)
-
-
 ## 🙁 Troubleshooting
 
 ### Executing the script
 
-If you installed the script to /sdcard/, you can execute it with the following command.
+If you installed the script to /sdcard/, you can
+<br>execute it with the following command.
 
 ```bash ./android-pin-bruteforce``` 
 
@@ -132,7 +116,8 @@ Note that Android mounts /sdcard with the noexec flag. You can verify this with 
 
 ### Check the cables
 
-The OTG cable should be connected to the locked Android phone. The regular USB cable should be connected to the Nethunter phone.
+The OTG cable should be connected to the locked Android phone.
+<br>The regular USB cable should be connected to the Nethunter phone.
 
 ### Diagnostics
 
@@ -146,7 +131,7 @@ If you receive this message when the USB cable is plugged in then try taking the
 
 ```[FAIL] HID USB device not ready. Return code from /system/xbin/hid-keyboard was 5.```
 
-### Tips
+### Tips & Tricks
 
 - Try powering off the phone and taking out the battery
 - Try sending keys to your PC or laptop
