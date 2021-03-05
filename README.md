@@ -41,12 +41,7 @@ The USB HID Gadget driver provides emulation of USB Human Interface Devices (HID
 - Configurable delays of N seconds after every X PIN attempts
 - Log file
 
-## ⚙ Installation
-
-TBC
-
-
-## ⚙ Usage
+## ⚙ Installation & Usage
 
 ```
 
