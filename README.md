@@ -149,7 +149,7 @@ If you receive this message when the USB cable is plugged in then try taking the
 
 - This cannot detect when it unlocks
 
-## ⚙ Technical Details
+## 🧑🏻‍💻 Technical Details
 
 This works from an Android phone because the USB ports are not bidirectional, unlike the ports on a laptop.
 
