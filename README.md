@@ -16,7 +16,7 @@ To learn about the commands and other usage details [Click Here.](https://github
 <br>It uses a USB OTG cable to connect the locked phone to the Nethunter device.
 <br>It emulates a keyboard, automatically tries PINs, and waits after trying too many wrong guesses.
 <br><br>
-[Nethunter phone] ⇌ [USB cable] ⇌ [USB OTG adaptor] ⇌ [Locked Android phone]
+**[Nethunter phone] ⇌ [USB cable] ⇌ [USB OTG adaptor] ⇌ [Locked Android phone]**
 
 The USB HID Gadget driver provides emulation of USB Human Interface Devices (HID).
 <br>This enables an Android Nethunter device to emulate keyboard input to the locked phone.
