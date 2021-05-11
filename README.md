@@ -73,13 +73,6 @@ Usage:
   android-pin-bruteforce <command> [options]
 ```
 
-
-## 📲 Supported Android Phones
-
-It has been tested with these devices:
-- Samsung S5 with Android 6.0.1
-
-
 ## 📌 PIN Lists
 
 ### Optimised PIN list
