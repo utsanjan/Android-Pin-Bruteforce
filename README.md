@@ -8,7 +8,7 @@
   <br>
 </h1>
 <p align="center">Unlock an Android phone (or device)<br>by bruteforcing the lockscreen PIN.
-<br>Turn your Kali Nethunter phone into a<br>bruteforce PIN cracker for Android devices!</p>
+<br>Turn your Kali Nethunter phone into a<br>bruteforce PIN cracker of Android!</p>
 
 ## 🧭 How it works 
 
