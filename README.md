@@ -13,8 +13,8 @@
 ## 🧭 How it works
 
 [![Buy Me A Coffee](https://img.shields.io/open-vsx/stars/redhat/java?color=D8B024&label=buy%20me%20a%20coffee&style=plastic)](https://www.buymeacoffee.com/utsanjan)‎ ‎
-[![](https://img.shields.io/github/languages/count/utsanjan/Android-Pin-Bruteforce?style=plastic)](https://github.com/utsanjan/Android-Pin-Bruteforce)‎ ‎
-[![](https://img.shields.io/github/license/utsanjan/Android-Pin-Bruteforce?logoColor=red&style=plastic)](https://github.com/utsanjan/Android-Pin-Bruteforce)‎ ‎
+[![](https://img.shields.io/github/languages/count/utsanjan/Android-Pin-Bruteforce?style=plastic)](https://github.com/utsanjan/Android-Pin-Bruteforce/search?l=shell)‎ ‎
+[![](https://img.shields.io/github/license/utsanjan/Android-Pin-Bruteforce?logoColor=red&style=plastic)](https://github.com/utsanjan/Android-Pin-Bruteforce/blob/main/LICENSE)‎ ‎
 [![](https://img.shields.io/github/languages/top/utsanjan/Android-Pin-Bruteforce?color=light%20green&style=plastic)](https://github.com/utsanjan/Android-Pin-Bruteforce)‎ ‎
 
 To learn about the commands and other usage details [Click Here.](https://github.com/utsanjan/Android-Pin-Bruteforce#-installation--usage)
