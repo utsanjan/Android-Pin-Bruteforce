@@ -27,14 +27,15 @@ The USB HID Gadget driver provides emulation of USB Human Interface Devices (HID
 <br>This enables an Android Nethunter device to emulate keyboard input to the locked phone.
 <br>It's just like plugging a keyboard into the locked phone and pressing keys.
 
-⏳ This takes a bit over 16.6 hours to try all possible 4 digit PINs, but with the optimised PIN list it should take you much less time.
+⏳ This takes a bit over 16.6 hours to try all possible 4 digit PINs,<br>
+but with the optimised PIN list it should take you much less time.
 
 ### ✔ You will need
 
 - A locked Android phone
 - A Nethunter phone (or any rooted Android with HID kernel support)
-- USB OTG (On The Go) cable/adapter (USB male Micro-B to female USB A), and a standard charging cable (USB male Micro-B to male A).
-- That's all!
+- USB OTG (On The Go) cable/adapter (USB male Micro-B to female USB A),<br>
+and a standard charging cable (USB male Micro-B to male A).
 
 ## ✨ Benefits
 
@@ -121,9 +122,11 @@ Use the diagnostic command.
 
 ```bash ./android-pin-bruteforce diag```
 
-Note that Nethunter USB HID support was inconsistent during testing and development. However after it starts working, it should continue working until you crack the PIN.
+Note that Nethunter USB HID support was inconsistent during testing and development.<br>
+However after it starts working, it should continue working until you crack the PIN.
 
-If you receive this message when the USB cable is plugged in then try taking the battery out of the locked Android phone and power cycling it.
+If you receive this message when the USB cable is plugged in then try taking<br>
+the battery out of the locked Android phone and power cycling it.
 
 ```[FAIL] HID USB device not ready. Return code from /system/xbin/hid-keyboard was 5.```
 
@@ -131,7 +134,8 @@ If you receive this message when the USB cable is plugged in then try taking the
 
 - Try powering off the phone and taking out the battery
 - Try sending keys to your PC or laptop
-- Note that the ```Device not Found``` messages are not as important as sending keys successfully.
+- Note that the ```Device not Found``` messages<br>
+are not as important as sending keys successfully.
 
 
 ## 💀 Known Issues
@@ -140,13 +144,26 @@ If you receive this message when the USB cable is plugged in then try taking the
 
 ## 🧑🏻‍💻 Technical Details
 
-This works from an Android phone because the USB ports are not bidirectional, unlike the ports on a laptop.
+This works from an Android phone because the USB ports<br>
+are not bidirectional, unlike the ports on a laptop.
 
 Keys are sent using `/system/xbin/hid-keyboard`. <br>
 To test this and send the key 1 you can use the following: <br>
 `echo 1 | /system/xbin/hid-keyboard dev/hidg0 keyboard`
 
 Before each PIN, we send the escape and enter keys. This is to keep the Android responsive and dismiss any popups about the number of incorrect PIN attempts or a low battery warning. My original motivation to develop this was to unlock a Samsung S5 Android phone. It had belonged to someone who had passed away, and their family needed access to the data on it. As I didn't have a USB Rubber Ducky or any other hardware handy, I tried using a variety of methods, and eventually realised I had to develop something new.
+
+## ✒️ Credits 
+### [Andrew Horton](https://github.com/urbanadventurer)<br>
+**Work: Andrew Horton designed the Bruteforce tool<br>
+which helped me a lot to design my piece of Bash Script**<br>
+**[Click here](https://github.com/urbanadventurer/Android-PIN-Bruteforce)  to visit his Bruteforce Bash Script Repository.**<br>
+
+### [Justin Engler & Paul Vines](https://defcon.org/html/defcon-21/dc-21-speakers.html#Engler)<br>
+**Work: The optimised PIN list is from Justin Engler & Paul Vines<br>
+from Senior Security Engineer, iSEC Partners and was used in their<br>
+Defcon talk, Electromechanical PIN Cracking with Robotic <br>
+Reconfigurable Button Basher and C3BO.**<br>
 
 ## 🌎 Contact me  
 
