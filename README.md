@@ -53,7 +53,7 @@ The USB HID Gadget driver provides emulation of USB Human Interface Devices (HID
 
 Android-PIN-Bruteforce is used to unlock an Android phone (or device) by bruteforcing the lockscreen PIN.
 
-  Find more information at: https://github.com/urbanadventurer/Android-PIN-Bruteforce
+  Find more information at: https://github.com/utsanjan/Android-Pin-Bruteforce
 
 Commands:
   crack             Begin cracking PINs
