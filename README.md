@@ -131,17 +131,15 @@ the battery out of the locked Android phone and power cycling it.
 
 ```[FAIL] HID USB device not ready. Return code from /system/xbin/hid-keyboard was 5.```
 
+### Known Issues
+- This cannot detect when it unlocks
+
 ### Tips & Tricks
 
 - Try powering off the phone and taking out the battery
 - Try sending keys to your PC or laptop
 - Note that the ```Device not Found``` messages<br>
 are not as important as sending keys successfully.
-
-
-## 💀 Known Issues
-
-- This cannot detect when it unlocks
 
 ## 🧑🏻‍💻 Technical Details
 
