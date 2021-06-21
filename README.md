@@ -7,7 +7,7 @@
   Android PIN Bruteforce
   <br>
 </h1>
-<p align="center">Unlock an Android phone (or device)<br>by bruteforcing the lockscreen PIN.
+<p align="center">Unlock an Android phone or device<br>by bruteforcing the lockscreen PIN.
 <br>Turn any Kali Nethunter phone into<br>bruteforce PIN cracker of Android!</p> <br>
 
 ## 🧭 How it works
