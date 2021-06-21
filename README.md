@@ -8,9 +8,14 @@
   <br>
 </h1>
 <p align="center">Unlock an Android phone (or device)<br>by bruteforcing the lockscreen PIN.
-<br>Turn your Kali Nethunter phone into a<br>bruteforce PIN cracker of Android!</p>
+<br>Turn any Kali Nethunter phone into<br>bruteforce PIN cracker of Android!</p> <br>
 
-## 🧭 How it works 
+## 🧭 How it works
+
+[![Buy Me A Coffee](https://img.shields.io/open-vsx/stars/redhat/java?color=D8B024&label=buy%20me%20a%20coffee&style=plastic)](https://www.buymeacoffee.com/utsanjan)‎ ‎
+[![](https://img.shields.io/github/languages/count/utsanjan/Android-Pin-Bruteforce?style=plastic)](https://github.com/utsanjan/Android-Pin-Bruteforce)‎ ‎
+[![](https://img.shields.io/github/license/utsanjan/Android-Pin-Bruteforce?color=red&logoColor=red&style=plastic)](https://github.com/utsanjan/Android-Pin-Bruteforce)‎ ‎
+[![](https://img.shields.io/github/languages/top/utsanjan/Android-Pin-Bruteforce?color=light%20green&style=plastic)](https://github.com/utsanjan/Android-Pin-Bruteforce)‎ ‎
 
 To learn about the commands and other usage details [Click Here.](https://github.com/utsanjan/Android-Pin-Bruteforce#-installation--usage)
 <br>It uses a USB OTG cable to connect the locked phone to the Nethunter device.
