@@ -6,7 +6,7 @@
 # Turn your Kali Nethunter phone into a bruteforce PIN cracker for Android devices!
 # This uses the USB OTG cable to emulate a keyboard, automatically try PINs, and wait after trying too many wrong guesses.
 #
-# https://github.com/urbanadventurer/Android-PIN-Bruteforce
+# https://github.com/utsanjan/Android-Pin-Bruteforce/
 
 
 # Load Default Configuration
@@ -37,7 +37,7 @@ function usage() {
   echo -e "
 Android-PIN-Bruteforce is used to unlock an Android phone (or device) by bruteforcing the lockscreen PIN.
 
-  Find more information at: https://github.com/urbanadventurer/Android-PIN-Bruteforce
+  Find more information at: https://github.com/utsanjan/Android-Pin-Bruteforce/
 
 Commands:
   crack\t\t\tBegin cracking PINs
