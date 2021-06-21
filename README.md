@@ -14,7 +14,7 @@
 
 [![Buy Me A Coffee](https://img.shields.io/open-vsx/stars/redhat/java?color=D8B024&label=buy%20me%20a%20coffee&style=plastic)](https://www.buymeacoffee.com/utsanjan)‎ ‎
 [![](https://img.shields.io/github/languages/count/utsanjan/Android-Pin-Bruteforce?style=plastic)](https://github.com/utsanjan/Android-Pin-Bruteforce)‎ ‎
-[![](https://img.shields.io/github/license/utsanjan/Android-Pin-Bruteforce?color=red&logoColor=red&style=plastic)](https://github.com/utsanjan/Android-Pin-Bruteforce)‎ ‎
+[![](https://img.shields.io/github/license/utsanjan/Android-Pin-Bruteforce?logoColor=red&style=plastic)](https://github.com/utsanjan/Android-Pin-Bruteforce)‎ ‎
 [![](https://img.shields.io/github/languages/top/utsanjan/Android-Pin-Bruteforce?color=light%20green&style=plastic)](https://github.com/utsanjan/Android-Pin-Bruteforce)‎ ‎
 
 To learn about the commands and other usage details [Click Here.](https://github.com/utsanjan/Android-Pin-Bruteforce#-installation--usage)
@@ -50,7 +50,7 @@ The USB HID Gadget driver provides emulation of USB Human Interface Devices (HID
 - Bypasses phone pop-ups including the Low Power warning
 - Detects when the phone is unplugged or powered off, and waits while retrying every 5 seconds
 - Configurable delays of N seconds after every X PIN attempts
-- Log file
+- Log file gets created for further debugging
 
 ## ⚙ Installation & Usage
 
@@ -142,8 +142,9 @@ If you receive this message when the USB cable is plugged in then try taking the
 
 This works from an Android phone because the USB ports are not bidirectional, unlike the ports on a laptop.
 
-Keys are sent using `/system/xbin/hid-keyboard`.
-To test this and send the key 1 you can use `echo 1 | /system/xbin/hid-keyboard dev/hidg0 keyboard`
+Keys are sent using `/system/xbin/hid-keyboard`. <br>
+To test this and send the key 1 you can use the following: <br>
+`echo 1 | /system/xbin/hid-keyboard dev/hidg0 keyboard`
 
 Before each PIN, we send the escape and enter keys. This is to keep the Android responsive and dismiss any popups about the number of incorrect PIN attempts or a low battery warning. My original motivation to develop this was to unlock a Samsung S5 Android phone. It had belonged to someone who had passed away, and their family needed access to the data on it. As I didn't have a USB Rubber Ducky or any other hardware handy, I tried using a variety of methods, and eventually realised I had to develop something new.
 
