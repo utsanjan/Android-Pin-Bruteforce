@@ -10,7 +10,7 @@
 <p align="center">Unlock an Android phone or device<br>by bruteforcing the lockscreen PIN.
 <br>Turn any Kali Nethunter phone into<br>bruteforce PIN cracker of Android!</p> <br>
 
-## 🧭 How it works 
+## 🧭 How it works
 
 [![Buy Me A Coffee](https://img.shields.io/open-vsx/stars/redhat/java?color=D8B024&label=buy%20me%20a%20coffee&style=plastic)](https://www.buymeacoffee.com/utsanjan)‎ ‎
 [![](https://img.shields.io/github/languages/count/utsanjan/Android-Pin-Bruteforce?style=plastic)](https://github.com/utsanjan/Android-Pin-Bruteforce/search?l=shell)‎ ‎
