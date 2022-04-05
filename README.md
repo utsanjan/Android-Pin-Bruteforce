@@ -30,7 +30,7 @@ The USB HID Gadget driver provides emulation of USB Human Interface Devices (HID
 ⏳ This takes a bit over 16.6 hours to try all possible 4 digit PINs,<br>
 but with the optimised PIN list it should take you much less time.
 
-### ✔ You will need
+### ✅ You will need
 
 - A locked Android phone
 - A Nethunter phone (or any rooted Android with HID kernel support)
